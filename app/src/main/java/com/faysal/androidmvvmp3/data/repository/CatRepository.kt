@@ -1,12 +1,14 @@
 package com.faysal.androidmvvmp3.data.repository
 
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.faysal.androidmvvmp3.data.datasource.CatsDataSource
 import com.faysal.androidmvvmp3.data.local.database.AppDatabase
 import com.faysal.androidmvvmp3.data.mediators.CatRemoteMediators
 import com.faysal.androidmvvmp3.data.remote.api.CatsAPI
 import com.faysal.androidmvvmp3.models.Cat
-import com.faysal.androidmvvmp3.models.Cats
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +20,7 @@ class CatRepository @Inject constructor(
 ) {
     private val pagingDataSourceFactory = {database.catDao.getCats()}
 
-    /*@ExperimentalPagingApi
+    @ExperimentalPagingApi
     fun getCats() : Flow<PagingData<Cat>> {
         return Pager(
             config = PagingConfig(
@@ -31,9 +33,9 @@ class CatRepository @Inject constructor(
             ),
             pagingSourceFactory = pagingDataSourceFactory
         ).flow
-    }*/
+    }
 
-   @ExperimentalPagingApi
+ /*  @ExperimentalPagingApi
     fun getCats() : Flow<PagingData<Cat>> {
         return Pager(
             config = PagingConfig(
@@ -44,7 +46,7 @@ class CatRepository @Inject constructor(
                 CatsDataSource(cateAPI)
             }
         ).flow
-    }
+    }*/
 
     companion object {
         private const val NETWORK_PAGE_SIZE = 10

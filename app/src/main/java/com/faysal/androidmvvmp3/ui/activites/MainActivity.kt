@@ -2,6 +2,7 @@ package com.faysal.androidmvvmp3.ui.activites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -26,14 +27,11 @@ import kotlinx.coroutines.launch
 @ExperimentalPagingApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
     private val adapter = CatsAdapter { name: String -> snackBarClickedPlayer(name) }
 
-
     private var searchJob: Job? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             adapter.refresh()
 
         }
+
     }
 
     @ExperimentalPagingApi
@@ -96,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
                     else -> null
                 }
+
                 error?.let {
                     if (adapter.snapshot().isEmpty()) {
                         binding.errorTxt.isVisible = true
@@ -112,5 +112,6 @@ class MainActivity : AppCompatActivity() {
     private fun retry() {
         adapter.retry()
     }
+
 
 }
