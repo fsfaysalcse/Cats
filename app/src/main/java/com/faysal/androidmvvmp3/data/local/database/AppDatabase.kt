@@ -16,7 +16,7 @@ import com.faysal.androidmvvmp3.models.Cat
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract val catDao: CatDao
-    abstract val remoteKey: RemoteKeysDao
+    abstract val remoteDao : RemoteKeysDao
 
     companion object {
         @Volatile
