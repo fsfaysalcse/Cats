@@ -1,4 +1,4 @@
-package com.faysal.androidmvvmp3.api
+package com.faysal.androidmvvmp3.data.remote.api
 
 import com.faysal.androidmvvmp3.models.Cats
 import retrofit2.http.GET

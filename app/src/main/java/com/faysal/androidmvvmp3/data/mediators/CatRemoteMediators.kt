@@ -5,23 +5,22 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.faysal.androidmvvmp3.api.CatsAPI
+import com.faysal.androidmvvmp3.data.remote.api.CatsAPI
 import com.faysal.androidmvvmp3.data.local.database.AppDatabase
 import com.faysal.androidmvvmp3.data.local.entity.RemoteKey
+import com.faysal.androidmvvmp3.models.Cat
 import com.faysal.androidmvvmp3.models.Cats
 import com.faysal.androidmvvmp3.utility.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
-import kotlin.contracts.Returns
 
 @ExperimentalPagingApi
-class CatRemoteMediators @Inject constructor(
+class CatRemoteMediators (
     private val api: CatsAPI,
     private val database: AppDatabase
 
-) : RemoteMediator<Int, Cats>() {
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, Cats>): MediatorResult {
+) : RemoteMediator<Int, Cat>() {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, Cat>): MediatorResult {
         val key = when (loadType) {
             LoadType.REFRESH -> {
                 if (database.catDao.totalAllCats() > 0) return MediatorResult.Success(false)

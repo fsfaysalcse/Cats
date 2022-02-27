@@ -1,7 +1,7 @@
 package com.faysal.androidmvvmp3.di
 
 import android.content.Context
-import com.faysal.androidmvvmp3.api.CatsAPI
+import com.faysal.androidmvvmp3.data.remote.api.CatsAPI
 import com.faysal.androidmvvmp3.data.local.dao.CatDao
 import com.faysal.androidmvvmp3.data.local.dao.RemoteKeysDao
 import com.faysal.androidmvvmp3.data.local.database.AppDatabase
@@ -31,7 +31,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesKeyDao(appDatabase: AppDatabase) : RemoteKeysDao = appDatabase.remoteKey
+    fun providesKeyDao(appDatabase: AppDatabase) : RemoteKeysDao = appDatabase.remoteDao
 
     @Provides
     @Singleton

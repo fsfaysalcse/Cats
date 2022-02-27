@@ -1,16 +1,15 @@
 package com.faysal.androidmvvmp3.data.datasource
 
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
-import com.faysal.androidmvvmp3.api.CatsAPI
+import androidx.paging.*
+import com.faysal.androidmvvmp3.data.remote.api.CatsAPI
 import com.faysal.androidmvvmp3.models.Cat
 import com.faysal.androidmvvmp3.utility.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
+import java.net.UnknownHostException
 
 
-class CatsDataSource @Inject constructor(
+class CatsDataSource(
     private val catsAPI : CatsAPI
 ) : PagingSource<Int, Cat>(){
     override fun getRefreshKey(state: PagingState<Int, Cat>): Int? {
@@ -24,13 +23,11 @@ class CatsDataSource @Inject constructor(
             LoadResult.Page(
                 data = response,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
-                nextKey = page + 1
+                nextKey = if (response.size == 0) null else page + 1
             )
-        }catch (e : IOException){
+        }catch (e : Exception){
             val error = IOException("Please check Internet Connection")
             LoadResult.Error(error)
-        }catch (e : HttpException){
-            LoadResult.Error(e)
         }
     }
 
